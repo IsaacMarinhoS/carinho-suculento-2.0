@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import axios from "axios";
 import "./Gallery.css";
 
@@ -13,7 +12,6 @@ function GalleryPage() {
   const [newCategory, setNewCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
- 
 
   useEffect(() => {
     const adminStatus = localStorage.getItem("isAdmin");
@@ -97,7 +95,7 @@ function GalleryPage() {
     setMessage("Deletando imagem...");
 
     try {
-     await axios.delete(`http://localhost:3001/photos/${id}`);
+      await axios.delete(`http://localhost:3001/photos/${id}`);
       const updatedPhotos = photos.filter((photo) => photo.id !== id);
       setPhotos(updatedPhotos);
       updateCategories(updatedPhotos);
@@ -124,9 +122,7 @@ function GalleryPage() {
   const groupedPhotos = groupPhotosByCategory(photos);
 
   return (
-    <div style={{ color: "#173617",  padding: "20px", textAlign: "center" }}>
-      
-
+    <div style={{ color: "#173617", padding: "20px", textAlign: "center" }}>
       {isAdmin && (
         <>
           <h2 className="fonte">Modo Administrador</h2>
@@ -185,7 +181,6 @@ function GalleryPage() {
                 <img
                   src={photo.src}
                   alt={photo.category || "Foto"}
-                
                 />
                 {isAdmin && (
                   <div style={{ marginTop: "10px" }}>
