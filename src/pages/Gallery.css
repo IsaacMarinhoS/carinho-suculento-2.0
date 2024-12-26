@@ -1,0 +1,96 @@
+.fonte {
+  color: #173617;
+  font-size: 1.5em;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Contêiner da galeria */
+.gallery-grid {
+  margin-top: 2%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  gap: 15px;
+}
+
+.gallery-grid img {
+  width: 100%;
+  height: 297px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.titulo-galeria {
+  margin-left: -12px;
+  margin-top: 2%;
+  font-size: 300%;
+  font-family: 'Georgia', 'Times New Roman', serif;
+}
+
+/* Estilização do Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;  /* Ajusta a altura automaticamente para manter a proporção */
+  max-height: 80vh;  /* Limita a altura da imagem para não ultrapassar a altura da tela */
+  object-fit: contain;  /* Garantir que a imagem seja redimensionada sem cortar */
+  border-radius: 10px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 1.5em;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsividade */
+@media (max-width: 1200px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}

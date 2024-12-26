@@ -1,0 +1,171 @@
+/* Reset e estilo geral */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  
+}
+
+body {
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+  
+}
+
+.header {
+  background-color: #173617;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.logo {
+  font-size: 28px;
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.navbar a:hover {
+  color: #d8f3dc;
+}
+
+/* Estilo da seção hero */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50px 10%;
+  
+  color: #173617;
+}
+
+.hero-content {
+  flex: 1;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-top: -2%;
+}
+
+.hero-content h3 {
+  font-size: 24px;
+  margin-top: 20px;
+}
+
+.hero-content p {
+  margin: 20px 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #173617;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #2d6a4f;
+}
+
+.imagem {
+  width: 400px;
+  border-radius: 10px;
+}
+
+/* Seção de recursos */
+.features {
+  display: flex;
+  justify-content: space-around;
+  padding: 40px 10%;
+  background-color: #f5e6db;
+}
+
+.feature-item {
+  max-width: 300px;
+  text-align: center;
+}
+
+.feature-item h2 {
+  margin-bottom: 10px;
+  color: #174d15;
+}
+
+.footer {
+  background-color: #174d15;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Responsividade */
+
+/* Dispositivos pequenos */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Empilha o logo e a navegação */
+    align-items: center;
+  }
+
+  .navbar {
+    margin-top: 10px; /* Espaçamento entre logo e navbar */
+  }
+
+  .hero {
+    flex-direction: column; /* Alinha o conteúdo em coluna */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .hero-content h1 {
+    font-size: 36px; /* Reduz tamanho do título */
+  }
+
+  .hero-content h3 {
+    font-size: 20px; /* Reduz subtítulo */
+  }
+
+  .imagem {
+    width: 300px; /* Reduz a largura da imagem */
+    margin-top: 20px; /* Adiciona espaçamento acima da imagem */
+  }
+
+  .features {
+    flex-direction: column; /* Empilha os itens de recurso */
+    align-items: center; /* Centraliza os itens */
+  }
+
+  .feature-item {
+    margin-bottom: 30px; /* Adiciona espaçamento entre itens */
+  }
+}
+
+/* Dispositivos médios */
+@media (max-width: 1024px) {
+  .hero-content h1 {
+    font-size: 42px; /* Ajusta tamanho do título */
+  }
+
+  .hero-content h3 {
+    font-size: 22px; /* Ajusta subtítulo */
+  }
+
+  .imagem {
+    width: 350px; /* Ajusta tamanho da imagem */
+  }
+}

@@ -1,0 +1,21 @@
+  
+  /* Seção de recursos */
+  .features {
+    display: flex;
+    justify-content: space-around;
+    padding: 47px 10%;
+    background-color: #f5e6db;
+  }
+  
+  .feature-item {
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  .feature-item h2 {
+    margin-bottom: 10px;
+    color: #174d15;
+  }
+  
+  
+  
