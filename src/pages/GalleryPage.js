@@ -13,7 +13,7 @@ function GalleryPage() {
   const [newCategory, setNewCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+ 
 
   useEffect(() => {
     const adminStatus = localStorage.getItem("isAdmin");
