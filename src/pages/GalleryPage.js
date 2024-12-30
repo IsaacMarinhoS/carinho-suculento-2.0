@@ -19,8 +19,7 @@ function GalleryPage() {
 
     const loadPhotos = async () => {
       try {
-        // Usando a URL do back-end hospedado no Render
-        const response = await axios.get("https://carinho-suculento-2-0-back-and-1.onrender.com/photos");
+        const response = await axios.get("http://localhost:3001/photos");
         setPhotos(response.data);
         updateCategories(response.data);
       } catch (error) {
@@ -71,8 +70,7 @@ function GalleryPage() {
     formData.append("category", selectedCategory);
 
     try {
-      // Usando a URL do back-end hospedado no Render
-      const response = await axios.post("https://carinho-suculento-2-0-back-and-1.onrender.com/photos", formData, {
+      const response = await axios.post("http://localhost:3001/photos", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const updatedPhotos = [...photos, response.data];
@@ -97,8 +95,7 @@ function GalleryPage() {
     setMessage("Deletando imagem...");
 
     try {
-      // Usando a URL do back-end hospedado no Render
-      await axios.delete(`https://carinho-suculento-2-0-back-and-1.onrender.com/photos/${id}`);
+      await axios.delete("http://localhost:3001/photos/${id}");
       const updatedPhotos = photos.filter((photo) => photo.id !== id);
       setPhotos(updatedPhotos);
       updateCategories(updatedPhotos);
