@@ -19,7 +19,7 @@ function GalleryPage() {
 
     const loadPhotos = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/photos`);
+        const response = await axios.get("http://localhost:3001/photos");
         setPhotos(response.data);
         updateCategories(response.data);
       } catch (error) {
@@ -70,7 +70,7 @@ function GalleryPage() {
     formData.append("category", selectedCategory);
 
     try {
-      const response = await axios.post(`http://localhost:3001/photos`, formData, {
+      const response = await axios.post("http://localhost:3001/photos", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const updatedPhotos = [...photos, response.data];
@@ -181,6 +181,7 @@ function GalleryPage() {
                 <img
                   src={photo.src}
                   alt={photo.category || "Foto"}
+                  style={{ width: "100%", borderRadius: "10px" }}
                 />
                 {isAdmin && (
                   <div style={{ marginTop: "10px" }}>
