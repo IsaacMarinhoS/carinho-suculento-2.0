@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Gallery.css";
 
+
+
 function GalleryPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [photos, setPhotos] = useState([]);
@@ -19,7 +21,7 @@ function GalleryPage() {
 
     const loadPhotos = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/photos");
+        const response = await axios.get("http://localhost:3000/photos");
         setPhotos(response.data);
         updateCategories(response.data);
       } catch (error) {
@@ -70,7 +72,7 @@ function GalleryPage() {
     formData.append("category", selectedCategory);
 
     try {
-      const response = await axios.post("http://localhost:3001/photos", formData, {
+      const response = await axios.post("http://localhost:3000/photos", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       const updatedPhotos = [...photos, response.data];
@@ -95,7 +97,7 @@ function GalleryPage() {
     setMessage("Deletando imagem...");
 
     try {
-      await axios.delete(`http://localhost:3001/photos/${id}`);
+      await axios.delete(`http://localhost:3000/photos/${id}`);
       const updatedPhotos = photos.filter((photo) => photo.id !== id);
       setPhotos(updatedPhotos);
       updateCategories(updatedPhotos);
