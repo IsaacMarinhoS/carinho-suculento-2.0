@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Gallery.css";
 
-
-
 function GalleryPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [photos, setPhotos] = useState([]);
@@ -67,6 +65,7 @@ function GalleryPage() {
 
     setLoading(true);
     setMessage("Enviando imagem...");
+
     const formData = new FormData();
     formData.append("image", file);
     formData.append("category", selectedCategory);
@@ -79,6 +78,7 @@ function GalleryPage() {
       setPhotos(updatedPhotos);
       updateCategories(updatedPhotos);
 
+      // Limpar os campos após o envio
       setFile(null);
       setCategory("");
       setNewCategory("");

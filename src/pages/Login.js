@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 
 function Login({ setShowModal, setIsLoggedIn, setUserType, setShowRegistration }) {
@@ -6,6 +6,22 @@ function Login({ setShowModal, setIsLoggedIn, setUserType, setShowRegistration }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    // Verificar se já existe um administrador fixo no localStorage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    if (users.length === 0) {
+      // Adicionar um admin fixo
+      const admin = {
+        username: "admin",
+        email: "admin@admin.com",
+        password: "admin123",
+        isAdmin: true
+      };
+      users.push(admin);
+      localStorage.setItem('users', JSON.stringify(users));
+    }
+  }, []);
 
   // Função de login
   const handleLogin = (e) => {
