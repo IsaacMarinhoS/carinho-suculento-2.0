@@ -54,9 +54,9 @@
 
 .modal-image {
   width: 100%;
-  height: auto;  /* Ajusta a altura automaticamente para manter a proporção */
-  max-height: 80vh;  /* Limita a altura da imagem para não ultrapassar a altura da tela */
-  object-fit: contain;  /* Garantir que a imagem seja redimensionada sem cortar */
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
   border-radius: 10px;
 }
 
@@ -79,7 +79,7 @@
 /* Responsividade */
 @media (max-width: 1200px) {
   .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
@@ -93,4 +93,63 @@
   .gallery-grid {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   }
+
+  .modal-overlay {
+    padding: 10px;
+  }
+}
+
+/* Modal para exibir a imagem ampliada */
+.image-modal-content {
+  position: relative;
+  width: 90%;
+  max-width: 700px;
+  margin: auto;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.image-fullscreen {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Barra rolável de categorias */
+.category-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto; /* Permite a rolagem horizontal */
+  margin-bottom: 20px;
+}
+
+.category-buttons button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  flex-shrink: 0; /* Impede que os botões encolham */
 }

@@ -3,6 +3,8 @@ import axios from "axios";
 import "./Gallery.css";
 
 function GalleryPage() {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categoryName, setCategoryName] = useState(""); // Estado para o nome da categoria
   const [isAdmin, setIsAdmin] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -12,6 +14,8 @@ function GalleryPage() {
   const [newCategory, setNewCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null); // Estado para controlar a imagem selecionada no modal
+
 
   useEffect(() => {
     const adminStatus = localStorage.getItem("isAdmin");
@@ -19,7 +23,6 @@ function GalleryPage() {
 
     const loadPhotos = async () => {
       try {
-        // Atualize a URL para o backend hospedado no Render
         const response = await axios.get("https://carinho-suculento-2-0-back-and.onrender.com/photos");
         setPhotos(response.data);
         updateCategories(response.data);
@@ -72,7 +75,6 @@ function GalleryPage() {
     formData.append("category", selectedCategory);
 
     try {
-      // Atualize a URL para o backend hospedado no Render
       const response = await axios.post("https://carinho-suculento-2-0-back-and.onrender.com/photos", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
@@ -80,7 +82,6 @@ function GalleryPage() {
       setPhotos(updatedPhotos);
       updateCategories(updatedPhotos);
 
-      // Limpar os campos após o envio
       setFile(null);
       setCategory("");
       setNewCategory("");
@@ -99,7 +100,6 @@ function GalleryPage() {
     setMessage("Deletando imagem...");
 
     try {
-      // Atualize a URL para o backend hospedado no Render
       await axios.delete(`https://carinho-suculento-2-0-back-and.onrender.com/photos/${id}`);
       const updatedPhotos = photos.filter((photo) => photo.id !== id);
       setPhotos(updatedPhotos);
@@ -125,6 +125,26 @@ function GalleryPage() {
   };
 
   const groupedPhotos = groupPhotosByCategory(photos);
+
+  const openImageModal = (photo) => {
+    setSelectedImage(photo);
+  };
+
+  const closeImageModal = () => {
+    setSelectedImage(null);
+  };
+
+  const handleNextImage = () => {
+    const currentIndex = photos.findIndex((photo) => photo.id === selectedImage.id);
+    const nextImage = photos[(currentIndex + 1) % photos.length];
+    setSelectedImage(nextImage);
+  };
+
+  const handlePrevImage = () => {
+    const currentIndex = photos.findIndex((photo) => photo.id === selectedImage.id);
+    const prevImage = photos[(currentIndex - 1 + photos.length) % photos.length];
+    setSelectedImage(prevImage);
+  };
 
   return (
     <div style={{ color: "#173617", padding: "20px", textAlign: "center" }}>
@@ -177,16 +197,52 @@ function GalleryPage() {
       {loading && <div>Carregando...</div>}
       {message && <div>{message}</div>}
 
-      {Object.keys(groupedPhotos).map((category) => (
-        <div key={category} style={{ marginBottom: "30px" }}>
-          <h2 className="titulo-galeria">{category}</h2>
-          <div className="gallery-grid">
-            {groupedPhotos[category].map((photo) => (
+      {/* Barra rolável de categorias */}
+      <div className="categories-menu">
+        <h2>Escolha uma Categoria</h2>
+        <div className="category-buttons">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                setSelectedCategory(cat);
+                setCategoryName(cat);  // Exibir o nome da categoria selecionada
+              }}
+              style={{ margin: "10px" }}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Texto explicativo quando nenhuma categoria for selecionada */}
+      {!selectedCategory && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <p>Selecione uma categoria para visualizar as imagens. <br /> Role para o lado para escolher uma categoria.</p>
+        </div>
+      )}
+
+      {/* Exibir o nome da categoria selecionada */}
+      {selectedCategory && (
+        <div style={{ marginTop: "20px", textAlign: "center" }}>
+          <h3> {categoryName}</h3>
+        </div>
+      )}
+
+      {/* Exibir imagens filtradas pela categoria selecionada */}
+      <div>
+
+        <div className="gallery-grid">
+          {selectedCategory ? (
+            // Mostrar imagens filtradas pela categoria selecionada
+            groupedPhotos[selectedCategory]?.map((photo) => (
               <div key={photo.id} style={{ marginBottom: "15px" }}>
                 <img
                   src={photo.src}
                   alt={photo.category || "Foto"}
-                  style={{ width: "100%", borderRadius: "10px" }}
+                  style={{ width: "100%", borderRadius: "10px", cursor: "pointer" }}
+                  onClick={() => openImageModal(photo)}
                 />
                 {isAdmin && (
                   <div style={{ marginTop: "10px" }}>
@@ -194,11 +250,34 @@ function GalleryPage() {
                   </div>
                 )}
               </div>
-            ))}
+            ))
+          ) : (
+            <p></p>
+          )}
+        </div>
+      </div>
+
+      {/* Modal para exibir a imagem ampliada */}
+      {selectedImage && (
+        <div className="overlay" onClick={closeImageModal}>
+          <div className="image-modal-content" onClick={(e) => e.stopPropagation()}>
+            <span className="close" onClick={closeImageModal}>&times;</span>
+            <div className="image-container">
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.category || "Imagem"}
+                className="image-fullscreen"
+              />
+            </div>
+            <button onClick={handleNextImage} className="next-btn">&#10095;</button>
+            <button onClick={handlePrevImage} className="prev-btn">&#10094;</button>
           </div>
         </div>
-      ))}
+      )}
     </div>
+
+
+
   );
 }
 

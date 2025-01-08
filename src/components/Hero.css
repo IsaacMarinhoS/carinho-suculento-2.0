@@ -1,67 +1,36 @@
-/* Reset e estilo geral */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Georgia', 'Times New Roman', serif;
-  
-}
-
-body {
-  background-color: #f4f4f4;
-  color: #333;
-  line-height: 1.6;
-  
-}
-
-.header {
-  background-color: #173617;
-  padding: 14px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-}
-
-.logo {
-  font-size: 28px;
-  color: white;
-  text-decoration: none;
-  margin-left: 15px;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin-left: 20px;
-}
-
-.navbar a:hover {
-  color: #d8f3dc;
-}
+/* Estilos do arquivo principal (index.css) */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
 
 /* Estilo da seção hero */
 .hero {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 50px 10%;
-  
+  flex-direction: row; /* Alinha o conteúdo lado a lado (horizontalmente) */
+  align-items: center; /* Alinha os itens verticalmente no centro */
+  justify-content: space-between; /* Espaçamento entre o texto e o carrossel */
+  padding: 38px 10%;
   color: #173617;
+  background: linear-gradient(to right, #f5f5f5, #e8f5e9);
+  border-bottom: 5px solid #d8f3dc;
 }
 
 .hero-content {
-  flex: 1;
+  flex: 1; /* Faz com que o conteúdo ocupe uma parte da largura disponível */
+  text-align: left; /* Alinha o texto à esquerda */
 }
 
 .hero-content h1 {
   font-size: 48px;
   margin-top: -2%;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #aaa;
 }
 
 .hero-content h3 {
   font-size: 24px;
   margin-top: 20px;
+  font-style: italic;
+  color: #2d6a4f;
 }
 
 .hero-content p {
@@ -70,102 +39,83 @@ body {
 
 .btn {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 12px 25px;
   background-color: #173617;
   color: white;
   text-decoration: none;
   border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
 }
 
-.btn:hover {
-  background-color: #2d6a4f;
+/* Ajustes no carrossel */
+.hero-carousel {
+  flex: 1; /* Faz com que o carrossel ocupe a outra parte da largura disponível */
+  max-width: 35%; /* Garante que o carrossel ocupe no máximo 50% da largura */
 }
 
-.imagem {
-  width: 400px;
+.hero-image {
+  width: 100%; /* Faz as imagens ocuparem toda a largura do contêiner */
+  height: auto;
+  max-height: 343px; /* Limita a altura das imagens */
+  object-fit: cover; /* Ajusta a imagem para que se ajuste sem distorcer */
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Seção de recursos */
-.features {
+/* Estilo padrão para telas maiores (desktop) */
+.hero {
   display: flex;
-  justify-content: space-around;
-  padding: 40px 10%;
-  background-color: #f5e6db;
+  flex-direction: row; /* Alinha o texto e a imagem lado a lado */
+  align-items: center;
+  justify-content: space-between;
+  padding: 38px 10%;
+  color: #173617;
+  background: linear-gradient(to right, #f5f5f5, #e8f5e9);
+  border-bottom: 5px solid #d8f3dc;
 }
 
-.feature-item {
-  max-width: 300px;
-  text-align: center;
+.hero-image {
+  width: 100%; /* Ocupa toda a largura do contêiner */
+  max-height: 343px; /* Altura padrão */
+  object-fit: cover; /* Ajusta a imagem sem distorcer */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.feature-item h2 {
-  margin-bottom: 10px;
-  color: #174d15;
-}
-
-.footer {
-  background-color: #174d15;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-/* Responsividade */
-
-/* Dispositivos pequenos */
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column; /* Empilha o logo e a navegação */
-    align-items: center;
-  }
-
-  .navbar {
-    margin-top: 10px; /* Espaçamento entre logo e navbar */
-  }
-
+/* Responsividade: A partir de 800px, imagem vai para baixo */
+@media (max-width: 800px) {
   .hero {
-    flex-direction: column; /* Alinha o conteúdo em coluna */
+    flex-direction: column; /* Alinha o texto em coluna com a imagem abaixo */
     text-align: center; /* Centraliza o texto */
   }
 
-  .hero-content h1 {
-    font-size: 36px; /* Reduz tamanho do título */
+  .hero-content {
+    margin-bottom: 20px; /* Adiciona espaço entre o texto e o carrossel */
+    flex-direction: column; /* Alinha o conteúdo em coluna */
+    text-align: center; /* Centraliza o texto */
+    justify-content: center; /* Centraliza os elementos horizontalmente */
+    align-items: center; /* Centraliza os elementos verticalmente */
   }
 
-  .hero-content h3 {
-    font-size: 20px; /* Reduz subtítulo */
+  .hero-carousel {
+    width: 100%; /* Faz o carrossel ocupar toda a largura disponível */
+    max-width: 100%; /* Remove a limitação da largura do carrossel */
   }
 
-  .imagem {
-    width: 300px; /* Reduz a largura da imagem */
-    margin-top: 20px; /* Adiciona espaçamento acima da imagem */
-  }
-
-  .features {
-    flex-direction: column; /* Empilha os itens de recurso */
-    align-items: center; /* Centraliza os itens */
-  }
-
-  .feature-item {
-    margin-bottom: 30px; /* Adiciona espaçamento entre itens */
+  .hero-image {
+    max-height: 600px; /* Aumenta a altura das imagens em telas menores */
+    border-radius: 10px;
   }
 }
 
-/* Dispositivos médios */
-@media (max-width: 1024px) {
-  .hero-content h1 {
-    font-size: 42px; /* Ajusta tamanho do título */
+/* Responsividade para telas menores que 500px */
+@media (max-width: 500px) {
+  .hero-image {
+    display: none; /* Oculta as imagens */
   }
 
-  .hero-content h3 {
-    font-size: 22px; /* Ajusta subtítulo */
-  }
-
-  .imagem {
-    width: 350px; /* Ajusta tamanho da imagem */
+  .hero-carousel {
+    display: none; /* Oculta o carrossel */
   }
 }

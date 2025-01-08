@@ -4,20 +4,24 @@ import "./Features.css";
 
 function Features() {
   return (
-    <section className="features">
-      <div className="feature-item">
-        <h2>Flores Frescas</h2>
-        <p>Garantimos a qualidade e frescor em cada buquê que criamos.</p>
-      </div>
-      <div className="feature-item">
-        <h2>Design Personalizado</h2>
-        <p>Cada buquê reflete a personalidade única de cada cliente.</p>
-      </div>
-      <div className="feature-item">
-        <h2>Entrega Rápida</h2>
-        <p>Entregamos seu buquê no tempo certo para o evento especial.</p>
-      </div>
-    </section>
+    <section class="features">
+    <div class="feature-item">
+  
+      <h2>Buquês Personalizados</h2>
+      <p>Criamos buquês que refletem a sua essência.</p>
+    </div>
+    <div class="feature-item">
+     
+      <h2>Eternização de Buquês</h2>
+      <p>Preservamos suas memórias de forma única.</p>
+    </div>
+    <div class="feature-item">
+     
+      <h2>Flores Frescas</h2>
+      <p>Trabalhamos com as melhores flores da estação.</p>
+    </div>
+  </section>
+  
   );
 }
 
