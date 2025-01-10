@@ -6,12 +6,11 @@ function Login({ setShowModal, setIsLoggedIn, setUserType, setShowRegistration }
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [isValidating, setIsValidating] = useState(false);
 
   useEffect(() => {
-    // Verificar se já existe um administrador fixo no localStorage
     const users = JSON.parse(localStorage.getItem('users')) || [];
     if (users.length === 0) {
-      // Adicionar um admin fixo
       const admin = {
         username: "admin",
         email: "admin@admin.com",
@@ -23,24 +22,58 @@ function Login({ setShowModal, setIsLoggedIn, setUserType, setShowRegistration }
     }
   }, []);
 
-  // Função de login
-  const handleLogin = (e) => {
+  const validateEmailFormat = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  };
+
+  const validateEmailWithAPI = async (email) => {
+    const apiKey = "00bb7d7261594f4cbbdf9541c2803af0"; // Substitua pela sua chave
+    const url = `https://emailvalidation.abstractapi.com/v1/?api_key=${apiKey}&email=${email}`;
+
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      console.log("Resposta da API:", data); // Debug
+      if (!response.ok) {
+        throw new Error(`Erro da API: ${response.status}`);
+      }
+
+      return data.deliverability === "DELIVERABLE" && data.is_valid_format?.value && !data.is_disposable_email?.value;
+    } catch (error) {
+      console.error("Erro ao validar e-mail:", error);
+      return false;
+    }
+  };
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Obtém a lista de usuários do localStorage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
+    if (!validateEmailFormat(email)) {
+      setErrorMessage("Formato de e-mail inválido.");
+      return;
+    }
 
-    // Verifica se o nome de usuário, e-mail e senha correspondem a um usuário cadastrado
+    setIsValidating(true);
+    const emailIsValid = await validateEmailWithAPI(email);
+    setIsValidating(false);
+
+    if (!emailIsValid) {
+      setErrorMessage("E-mail inválido ou não verificável.");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
     const user = users.find(
       (u) => u.username === username && u.email === email && u.password === password
     );
 
     if (user) {
-      // Se encontrado, armazena o tipo de usuário e realiza o login
       localStorage.setItem('isAdmin', user.isAdmin ? 'true' : 'false');
       setIsLoggedIn(true);
       setUserType(user.isAdmin ? 'admin' : 'user');
-      setShowModal(false); // Fecha o modal de login
+      setShowModal(false);
     } else {
       setErrorMessage('Usuário ou senha incorretos!');
     }
@@ -49,7 +82,6 @@ function Login({ setShowModal, setIsLoggedIn, setUserType, setShowRegistration }
   return (
     <div className="modal-container">
       <div className="modal">
-        {/* Botão de fechar modal */}
         <button className="close-button" onClick={() => setShowModal(false)}>
           &times;
         </button>
@@ -76,12 +108,13 @@ function Login({ setShowModal, setIsLoggedIn, setUserType, setShowRegistration }
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit">Entrar</button>
+          <button type="submit" disabled={isValidating}>
+            {isValidating ? "Validando..." : "Entrar"}
+          </button>
         </form>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         <p>
           Não tem uma conta?{' '}
-          {/* Quando o link for clicado, mostra o modal de registro */}
           <span onClick={() => setShowRegistration(true)}>Crie uma conta</span>
         </p>
       </div>

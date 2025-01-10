@@ -84,7 +84,7 @@
 }
 
 /* Responsividade: A partir de 800px, imagem vai para baixo */
-@media (max-width: 800px) {
+@media (max-width: 890px) {
   .hero {
     flex-direction: column; /* Alinha o texto em coluna com a imagem abaixo */
     text-align: center; /* Centraliza o texto */
